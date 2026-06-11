@@ -4,7 +4,8 @@
   "description": "Backend del Crud de servivios",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "node index",
+    "dev": "node --env-file .env --watch index"
   },
   "keywords": [
     "middleware",
@@ -15,18 +16,11 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@11.5.1",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.5.2",
-      "onFail": "download"
-    }
-  },
   "type": "module",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongoose": "^9.6.3",
-    "morgan": "^1.11.0"
+    "morgan": "^1.11.0" 
   }
 }
