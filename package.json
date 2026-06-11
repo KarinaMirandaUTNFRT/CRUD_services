@@ -5,13 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-=======
-        "start": "node index",
-    "dev": "node --env-file .env --watch index"
->>>>>>> feature/02_crud_servicios
   },
   "keywords": [
     "middleware",
@@ -21,7 +16,6 @@
   ],
   "author": "",
   "license": "ISC",
-<<<<<<< HEAD
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -29,14 +23,10 @@
       "onFail": "download"
     }
   },
-=======
-  "packageManager": "pnpm@11.5.1",
-  "type": "module",
->>>>>>> feature/02_crud_servicios
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongoose": "^9.6.3",
-    "morgan": "^1.11.0" 
+    "morgan": "^1.11.0"
   }
 }
