@@ -1,9 +1,11 @@
 {
-  "name": "18-backend-CRUD-Services",
+  "name": "18-backend-crud-services",
   "version": "1.0.0",
-  "description": "Backend del Crud de servivios",
+  "description": "Backend del Crud de servicios",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,7 +16,6 @@
   ],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@11.5.1",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -22,7 +23,6 @@
       "onFail": "download"
     }
   },
-  "type": "module",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
