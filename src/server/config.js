@@ -3,7 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import conectarDb from "../database/db.js"; // <-- Importación limpia
+import conectarDb from "../database/db.js";
 
 export default class Server {
     constructor() {
@@ -11,7 +11,7 @@ export default class Server {
         this.PORT = process.env.PORT || 3000;
         
         // Ejecutamos la conexión AQUÍ, cuando el entorno ya cargó
-        conectarDb(); 
+        //conectarDb(); 
         
         this.middleware();
     }
