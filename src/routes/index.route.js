@@ -1,5 +1,5 @@
 import { Router } from "express";
-import serviciosrouter from "./servicios.route.js";
+import serviciosRouter from "./servicios.route.js";
 const router = Router ()
-router.use('/servicios', serviciosrouter)
+router.use('/servicios', serviciosRouter)
 export default router

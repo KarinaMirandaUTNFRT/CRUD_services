@@ -1,4 +1,4 @@
-import router from "./src/routes/servicios.route.js";
+import router from "./src/routes/index.route.js";
 import Server from "./src/server/config.js";
 
 //instanciar la clase Server
