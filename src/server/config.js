@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { dirname } from "path";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import '../database/db.js'
 
@@ -17,8 +17,8 @@ export default class Server {
         this.app.use(express.json());
         this.app.use(morgan('dev'));
         const __dirname = dirname(fileURLToPath(import.meta.url));
-        console.log(__dirname + '/../../public');
-        this.app.use(express.static(__dirname + '/../../public'));
+        console.log(__dirname + '../../public');
+        this.app.use(express.static(join(__dirname + '../../public')));
     }
     Listen() {
         
