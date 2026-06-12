@@ -1,7 +1,8 @@
 import { Router } from "express";
+import { prueba } from "../controllers/servicios.controllers.js";
 
 const router = Router();
-router.route('/test').get((req, res) => {
-  res.json("hasta Luego");
-});
+
+router.route("/test").get(prueba);
+
 export default router;
