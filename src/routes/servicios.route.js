@@ -7,6 +7,6 @@ const router = Router();
 //delete borra
 
 router.route("/test").get(prueba);
-router.route ('/'). post(crearServicio)
+router.route ('/').post(crearServicio)
 
 export default router;

@@ -4,11 +4,11 @@ export const prueba = (req, res) => {
 }
 export const crearServicio = (req, res) => {
     try{
-
-    }catch{
+       console.log(req.body)
+       res.json("hasta Luego")
+    }catch(error){
         console.error(error)
         res.status(500).json({mensaje:'ocurrio un error'})
     }
-console.log(req, body)
-res.json("Hasta Luego")
+
 }
