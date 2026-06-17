@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-const ServicioSchema = new Schema(
+const servicioSchema = new Schema(
 {
     //propiedadd del objeto servicio
     nombreServicio:{
@@ -18,9 +18,8 @@ trim: true,
     imagen:{
         type: String,
         required: true,
-        validate: (valor) => {
-              /^https:\/\/.+\.(jpg|jpeg|png|webp|avif|svg)$/.test(valor)
-        }
+        validate: (valor) =>  /^https:\/\/.+\.(jpg|jpeg|png|webp|avif|svg)$/.test(valor)
+        
     },
     categoria:{
         type: String,
@@ -28,7 +27,7 @@ trim: true,
         enum:['Desarrollo Web','backend & API', 'Consultoria']
     },
     descripcion: {
-        Type: String,
+        type: String,
         minlength: 10,
         maxlength:500,
         required: true,
@@ -39,5 +38,5 @@ trim: true,
 }
 
 );
-const Servicio = mongoose.model('servicio', ServicioSchema)
+const Servicio = mongoose.model('servicio', servicioSchema)
 export default Servicio
