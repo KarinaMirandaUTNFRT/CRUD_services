@@ -8,5 +8,5 @@ const router = Router();
 
 router.route("/test").get(prueba);
 router.route ('/').post(crearServicio).get(listarServicios)
-router.route('/:id').get(obtenerServicioId) //id es un nom bre inventado
+router.route('/:id').get(obtenerServicioId) //id es un nombre inventado
 export default router;
