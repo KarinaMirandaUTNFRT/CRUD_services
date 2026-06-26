@@ -76,3 +76,25 @@ export const borrarUsuario = async (req, res) => {
     res.status(500).json({ mensaje: "Ocurrió un error al intentar borrar el usuario" });
   }
 };
+export const editarParcialUsuario = async (req, res) => {
+  try {
+    
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body }, // El operador $set de Mongoose asegura que solo se cambie lo enviado
+      { new: true, runValidators: true } // runValidators hace que respete el enum y reglas del Schema
+    );
+
+    if (!usuarioActualizado) {
+      return res.status(404).json({ mensaje: "No se encontró el usuario que querés editar" });
+    }
+
+    res.status(200).json({
+      mensaje: "Usuario actualizado correctamente",
+      usuarioActualizado
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Ocurrió un error al intentar actualizar el usuario" });
+  }
+};

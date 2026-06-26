@@ -4,6 +4,7 @@ import {
   obtenerUsuarioId,
   crearUsuario,
   editarUsuario,
+  editarParcialUsuario,
   borrarUsuario
 } from "../controllers/usuario.controllers.js";
 
@@ -15,6 +16,7 @@ usuariosRouter
   .route("/:id")
   .get(obtenerUsuarioId)
   .put(editarUsuario)
+  .patch(editarParcialUsuario)
   .delete(borrarUsuario);
 
 export default usuariosRouter;
