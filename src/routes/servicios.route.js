@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { actualizarParcialServicio, borrarServicio, crearServicio, editarServicio, listarServicios, obtenerServicioId,  prueba } from "../controllers/servicios.controllers.js";
-import validacionServicio from "../../middlewares/validacionServicio.js";
+import {validacionIDServicio, validacionServicio} from "../../middlewares/validacionServicio.js";
 
 const router = Router();
 //post crea
@@ -9,5 +9,5 @@ const router = Router();
 
 router.route("/test").get(prueba);
 router.route ('/').post(validacionServicio, crearServicio).get(listarServicios)
-router.route('/:id').get(obtenerServicioId).put(editarServicio).patch(actualizarParcialServicio).delete(borrarServicio); //id es un nombre inventado
+router.route('/:id').get(validacionIDServicio, obtenerServicioId).put([validacionIDServicio, validacionServicio], editarServicio).patch(actualizarParcialServicio).delete(validacionIDServicio,borrarServicio); //id es un nombre inventado
 export default router;
