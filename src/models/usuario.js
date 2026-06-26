@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-const servicioSchema = new Schema(
+const usuarioSchema = new Schema(
   {
     nombre: {
       type: String,
