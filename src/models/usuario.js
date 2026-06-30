@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import mongoose, { Schema } from "mongoose";
 const usuarioSchema = new Schema(
   {
@@ -45,3 +46,8 @@ const usuarioSchema = new Schema(
 );
 const Usuario = mongoose.model("usuario", usuarioSchema); //vinculo elusuarioSchema con la DB
 export default Usuario;
+=======
+import mongoose, {Schema} from "mongoose";
+//const servicioSchema = new Schema(
+    
+>>>>>>> 4939c50511021634d9eae85b83ec1b5c41741f94
