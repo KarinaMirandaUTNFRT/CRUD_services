@@ -22,7 +22,7 @@ trim: true,
         
     },
     categoria:{
-        type: String,
+        type: String, 
         required: true,
         enum:['Desarrollo Web','backend & API', 'Consultoria']
     },
