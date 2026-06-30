@@ -1,5 +1,6 @@
 import { body, param } from "express-validator";
 import resultadovalidacion from "./resultadoValidacion.js";
+import Servicio from "../models/servicio.js";
 
 export const validacionServicio = [
   body("nombreServicio")
@@ -7,9 +8,19 @@ export const validacionServicio = [
     .withMessage("el nombre del servicio es un dato obligatorio")
     .isString()
     .withMessage("El nombre del servicio debe ser un string")
-    .isLength({ min: 5, max: 100 })
-    .withMessage("el numero del servicio debe tener entre 5 y 100 caracteres")
-    ,
+    .custom(async (valor, { req }) => {
+      const servicioBuscado = await Servicio.findOne({ nombreServicio: valor });
+      console.log(servicioBuscado);
+    
+      if (!servicioBuscado) {
+        return true;
+      }
+      if (req.params?.id && servicioBuscado._id.toString() === req.params.id) {
+        return true;
+      }
+      throw new error ("El nombre del servicio ya existe en la base de datos, debes crear un nombre nuevo" )
+    }),
+    
   body('precio')
     .notEmpty()
     .withMessage("el precio es sun dato obligatorio")
