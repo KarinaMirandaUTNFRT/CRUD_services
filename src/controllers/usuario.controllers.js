@@ -2,11 +2,11 @@ import Usuario from "../models/Usuario.js";
 
 export const listarUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.find();
-    res.status(200).json(usuarios);
+    const usuarioNuevo = await Usuario.find();
+    res.status(201).json({mensaje: 'aqui creo un usuario'});
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al listar los usuarios" });
+    res.status(500).json({ mensaje: "Ocurrió un error al crear  usuarios" });
   }
 };
 export const obtenerUsuarioId = async (req, res) => {
@@ -31,8 +31,8 @@ export const crearUsuario = async (req, res) => {
       return res.status(400).json({ mensaje: "Este correo electrónico ya está registrado" });
     }
 
-    const nuevoUsuario = new Usuario(req.body);
-    await nuevoUsuario.save();
+    const nuevoUsuario = new nuevoUsuario(req.body);
+    await Usuario.save();
     res.status(201).json({
       mensaje: "El usuario fue creado con éxito",
       nuevoUsuario
