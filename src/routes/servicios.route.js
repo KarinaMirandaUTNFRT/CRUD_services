@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { actualizarParcialServicio, borrarServicio, crearServicio, editarServicio, listarServicios, obtenerServicioId,  prueba } from "../controllers/servicios.controllers.js";
-import {validacionIDServicio, validacionServicio, validacionServicioPatch} from "../../middlewares/validacionServicio.js";
+import {validacionIDServicio, validacionServicio, validacionServicioPatch} from "../middlewares/validacionServicio.js";
 
 const router = Router();
 //post crea
