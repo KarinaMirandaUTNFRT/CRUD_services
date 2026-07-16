@@ -48,6 +48,6 @@ const usuarioSchema = new Schema(
 const Usuario = mongoose.model("usuario", usuarioSchema); //vinculo elusuarioSchema con la DB
 export default Usuario;
 
-import mongoose, {Schema} from "mongoose";
+
 
     

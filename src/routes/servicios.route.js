@@ -1,3 +1,4 @@
+
 import { Router } from "express";
 import {
   //actualizarParcialServicio,
@@ -25,6 +26,6 @@ router
   .route("/:id")
   .get(validacionIDServicio, obtenerServicioId)
   .delete(validacionIDServicio, borrarServicio)
-  .put([validacionIDServicio, validacionServicio], editarServicioPorID)
-  .patch(validacionServicioPatch, editarServicioPorID);
+  // 🟢 CORRECTO (Usa 'editarServicio', que es el nombre real importado)
+.put([validacionIDServicio, validacionServicio], editarServicio).patch(validacionServicioPatch, editarServicio);
 export default router;

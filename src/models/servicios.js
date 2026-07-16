@@ -38,5 +38,6 @@ trim: true,
 }
 
 );
-const Servicio = mongoose.model('servicio', servicioSchema)
+// Cambia la línea de mongoose.model por esta que valida si ya existe:
+const Servicio = mongoose.models.servicio || mongoose.model("servicio", servicioSchema);
 export default Servicio
