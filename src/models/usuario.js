@@ -1,4 +1,5 @@
 import mongoose, {Schema} from "mongoose";
+import bcrypt from "bcryptjs";
 
 const usuarioSchema = new Schema(
   {
@@ -45,9 +46,21 @@ const usuarioSchema = new Schema(
     timestamp: true, //tengo la fecha y hora de creacion y actualizacion
   },
 );
+usuarioSchema.pre('save',function( ){ 
+const usuario = this;
+if(!usuario.isModified('password')) return;
+try {
+  const salt = await bcrypt.genSalt(10)
+  usuario.password = await bcrypt.hash(usuario.password, salt)
+} catch (error) {
+  console.error(error);
+  throw error
+  
+}
+})
 const Usuario = mongoose.model("usuario", usuarioSchema); //vinculo elusuarioSchema con la DB
 export default Usuario;
 
 import mongoose, {Schema} from "mongoose";
 
-    
+   
