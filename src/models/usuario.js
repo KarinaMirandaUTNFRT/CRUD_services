@@ -40,6 +40,18 @@ const usuarioSchema = new Schema(
         default:"cliente",
       },
     },
+    verificado:{
+      type: Boolean,
+      default: false,
+    },
+    codigoVerificacion:{
+      type: String, 
+    },
+    fechaExpiracion:{
+        type:Date,
+        
+
+    }
   },
 
   {

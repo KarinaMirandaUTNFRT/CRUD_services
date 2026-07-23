@@ -98,3 +98,11 @@ export const editarParcialUsuario = async (req, res) => {
     res.status(500).json({ mensaje: "Ocurrió un error al intentar actualizar el usuario" });
   }
 };
+export const registrarUsuario = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Ocurrió un error al intentar registrar usuario" });
+  }
+}

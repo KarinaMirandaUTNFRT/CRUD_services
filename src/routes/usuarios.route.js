@@ -5,12 +5,14 @@ import {
   crearUsuario,
   editarUsuario,
   editarParcialUsuario,
-  borrarUsuario
+  borrarUsuario,
+  registrarUsuario
 } from "../controllers/usuario.controllers.js";
 
 const usuariosRouter = Router();
 
 usuariosRouter.route("/").get(listarUsuarios).post(crearUsuario);
+usuariosRouter.route("/registro").post(registrarUsuario)
 
 usuariosRouter
   .route("/:id")
