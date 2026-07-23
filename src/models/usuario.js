@@ -49,7 +49,7 @@ const usuarioSchema = new Schema(
     },
     fechaExpiracion:{
         type:Date,
-        
+
 
     }
   },
@@ -58,7 +58,7 @@ const usuarioSchema = new Schema(
     timestamp: true, //tengo la fecha y hora de creacion y actualizacion
   },
 );
-usuarioSchema.pre('save',function( ){ 
+usuarioSchema.pre('save', async function( ){ 
 const usuario = this;
 if(!usuario.isModified('password')) return;
 try {
