@@ -1,4 +1,4 @@
-import Servicio from "../models/Servicios.js";
+import Servicio from "../models/servicios.js";
 export const prueba = (req, res) => {
   res.json("hasta luego ultima prueba");
 };
