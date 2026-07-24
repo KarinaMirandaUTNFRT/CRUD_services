@@ -152,3 +152,24 @@ console.error(error);
 res.status(500).json({ mensaje: "Ocurrio un error al registrar usuarios" });
 }
 };
+export const confirmarCodigoVerificacion = async (req, res) =>{
+  try {
+    const {email, codigo} = req.body;
+    //busco el email
+    const usuarioBuscado = await usuariosRouter.findOne({email})
+    if (!usuarioBuscado){
+      return res.status(404).json({mensaje:"no se ha encontrado el ususario"})
+    //cheuqera si esta verificado el mail
+    if(usuarioBuscado.verificado){
+      return res.estatus(400).json({mensaje: "Este mail ya esta verificado"})
+    }
+    //chequear tiempo de expiracion
+    if(new Date()>usuarioBuscado.fechaExpiracionCodigo){
+      return res.status(404).json({"ël codigo ha expirado"})
+    }
+    }
+  } catch (error) {
+    console.error(error);
+res.status(500).json({ mensaje: "Ocurrio un error al validar el codigo de verificacion " });
+}
+  }
