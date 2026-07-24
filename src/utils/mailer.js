@@ -16,3 +16,4 @@ transporter
   .catch((error) =>
     console.error("Error al configurar el transportador de mails", error),
   );
+  export default transporter;
