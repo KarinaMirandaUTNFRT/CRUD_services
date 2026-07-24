@@ -164,10 +164,10 @@ export const confirmarCodigoVerificacion = async (req, res) =>{
       return res.estatus(400).json({mensaje: "Este mail ya esta verificado"})
     }
     //chequear tiempo de expiracion
-    if(new Date()>usuarioBuscado.fechaExpiracionCodigo){
-      return res.status(404).json({"ël codigo ha expirado"})
+    if(new Date() > usuarioBuscado.fechaExpiracionCodigo){
+      return res.status(404).json({memsaje: "El codigo ha expirado"})
     }
-    }
+  }
   } catch (error) {
     console.error(error);
 res.status(500).json({ mensaje: "Ocurrio un error al validar el codigo de verificacion " });
