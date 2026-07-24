@@ -4,16 +4,17 @@ import morgan from "morgan";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import  "../database/db.js";
-
+import router from "../routes/index.route.js";
 export default class Server {
     constructor() {
         this.app = express();
-        this.PORT = process.env.PORT || 3000;
+        this.PORT = process.env.PORT || 3002;
         
         // Ejecutamos la conexión AQUÍ, cuando el entorno ya cargó
         //conectarDb(); 
         
         this.middleware();
+        this.route();
     }
 
     middleware() {
@@ -23,6 +24,9 @@ export default class Server {
         
         const __dirname = dirname(fileURLToPath(import.meta.url));
         this.app.use(express.static(join(__dirname, '../../public')));
+    }
+    route(){
+        this.app.use('/api',router);
     }
 
     Listen() {

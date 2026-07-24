@@ -1,4 +1,5 @@
 import mongoose, {Schema} from "mongoose";
+
 const servicioSchema = new Schema(
 {
     //propiedadd del objeto servicio
@@ -32,6 +33,7 @@ trim: true,
         maxlength:500,
         required: true,
     },
+    
 },
 {
     timestamp: true, //tengo la fecha y hora de creacion y actualizacion

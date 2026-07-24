@@ -54,7 +54,7 @@ export const validacionServicio = [
 ];
 
 export const validacionServicioPatch = [
-  ...reglasServicio.map((regla) => regla.opcional({ value: "falsy" })),
+  ...reglasServicio.map((regla) => regla.optional({ value: "falsy" })),
   resultadovalidacion,
 ];
 export const validacionIDServicio = [
