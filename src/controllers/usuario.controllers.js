@@ -22,8 +22,6 @@ export const obtenerUsuarioId = async (req, res) => {
     res.status(500).json({ mensaje: "Ocurrió un error al buscar el usuario por ID" });
   }
 };
-
-
 export const crearUsuario = async (req, res) => {
   try {
     // Verificamos si el email ya existe antes de intentar guardarlo para evitar el error de Mongoose
@@ -43,8 +41,6 @@ export const crearUsuario = async (req, res) => {
     res.status(500).json({ mensaje: "Ocurrió un error al crear el usuario" });
   }
 };
-
-
 export const editarUsuario = async (req, res) => {
   try {
     const usuarioActualizado = await Usuario.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -60,8 +56,6 @@ export const editarUsuario = async (req, res) => {
     res.status(500).json({ mensaje: "Ocurrió un error al intentar editar el usuario" });
   }
 };
-
-
 export const borrarUsuario = async (req, res) => {
   try {
     const usuarioEliminado = await Usuario.findByIdAndDelete(req.params.id);
@@ -154,7 +148,7 @@ res.status(500).json({ mensaje: "Ocurrio un error al registrar usuarios" });
 };
 export const confirmarCodigoVerificacion = async (req, res) =>{
   try {
-    const {email, codigo} = req.body;
+    const {email, codigoVerif} = req.body;
     //busco el email
     const usuarioBuscado = await usuariosRouter.findOne({email})
     if (!usuarioBuscado){
@@ -163,11 +157,23 @@ export const confirmarCodigoVerificacion = async (req, res) =>{
     if(usuarioBuscado.verificado){
       return res.estatus(400).json({mensaje: "Este mail ya esta verificado"})
     }
+
     //chequear tiempo de expiracion
     if(new Date() > usuarioBuscado.fechaExpiracionCodigo){
       return res.status(404).json({memsaje: "El codigo ha expirado"})
     }
   }
+  
+  if(usuarioBuscado.codigoVerificacion !== codigoVerif) {
+    return res.status(404).json({memsaje:"El codigo de verificacion es incorrecto"})
+  }
+  //verificamos la cueenta del ususrio
+await Usuario.findByIdAndUpdate(usuarioBuscado._id,{
+  $set:{verificado:true},
+  $unset:{codigoVerif:1, fechaExpiracionCodigo:1}
+})
+res.status(200).json({mensaje: "Cuenta verificada con exito. Ya puedes iniciar sesion"})
+
   } catch (error) {
     console.error(error);
 res.status(500).json({ mensaje: "Ocurrio un error al validar el codigo de verificacion " });
