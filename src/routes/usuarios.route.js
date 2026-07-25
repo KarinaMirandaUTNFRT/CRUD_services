@@ -7,7 +7,8 @@ import {
   editarParcialUsuario,
   borrarUsuario,
   registrarUsuario,
-  confirmarCodigoVerificacion
+  confirmarCodigoVerificacion,
+  solicitarNuevoCodigo
 } from "../controllers/usuario.controllers.js";
 
 const usuariosRouter = Router();
@@ -15,6 +16,7 @@ const usuariosRouter = Router();
 usuariosRouter.route("/").get(listarUsuarios).post(crearUsuario);
 usuariosRouter.route("/registro").post(registrarUsuario)
 usuariosRouter.route("/verificar-cuenta").post(confirmarCodigoVerificacion)
+usuariosRouter.route("/reenviar-codigo").post(solicitarNuevoCodigo)
 
 usuariosRouter
   .route("/:id")

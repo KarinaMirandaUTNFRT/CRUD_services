@@ -49,7 +49,7 @@ const usuarioSchema = new Schema(
     codigoVerificacion: {
       type: String,
     },
-    fechaExpiracion: {
+    fechaExpiracionCodigo: {
       type: Date,
     },
   },
