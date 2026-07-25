@@ -1,10 +1,10 @@
 import Usuario from "../models/Usuario.js";
-import transporter from "../utils/mailer.js"
+import transporter from "../utils/mailer.js";
 
 export const listarUsuarios = async (req, res) => {
   try {
     const usuarioNuevo = await Usuario.find();
-    res.status(201).json({mensaje: 'aqui creo un usuario'});
+    res.status(201).json({ mensaje: "aqui creo un usuario" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Ocurrió un error al crear  usuarios" });
@@ -14,119 +14,137 @@ export const obtenerUsuarioId = async (req, res) => {
   try {
     const usuarioBuscado = await Usuario.findById(req.params.id);
     if (!usuarioBuscado) {
-      return res.status(404).json({ mensaje: "No se encontró el usuario buscado" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el usuario buscado" });
     }
     res.status(200).json(usuarioBuscado);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al buscar el usuario por ID" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al buscar el usuario por ID" });
   }
 };
-
-
 export const crearUsuario = async (req, res) => {
   try {
     // Verificamos si el email ya existe antes de intentar guardarlo para evitar el error de Mongoose
     const emailExistente = await Usuario.findOne({ email: req.body.email });
     if (emailExistente) {
-      return res.status(400).json({ mensaje: "Este correo electrónico ya está registrado" });
+      return res
+        .status(400)
+        .json({ mensaje: "Este correo electrónico ya está registrado" });
     }
 
     const nuevoUsuario = new nuevoUsuario(req.body);
     await Usuario.save();
     res.status(201).json({
       mensaje: "El usuario fue creado con éxito",
-      nuevoUsuario
+      nuevoUsuario,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Ocurrió un error al crear el usuario" });
   }
 };
-
-
 export const editarUsuario = async (req, res) => {
   try {
-    const usuarioActualizado = await Usuario.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+    );
     if (!usuarioActualizado) {
-      return res.status(404).json({ mensaje: "No se encontró el usuario para editar" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el usuario para editar" });
     }
     res.status(200).json({
       mensaje: "El usuario fue modificado con éxito",
-      usuarioActualizado
+      usuarioActualizado,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al intentar editar el usuario" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al intentar editar el usuario" });
   }
 };
-
-
 export const borrarUsuario = async (req, res) => {
   try {
     const usuarioEliminado = await Usuario.findByIdAndDelete(req.params.id);
     if (!usuarioEliminado) {
-      return res.status(404).json({ mensaje: "No se encontró el usuario que querés borrar" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el usuario que querés borrar" });
     }
     res.status(200).json({
       mensaje: "El usuario fue eliminado con éxito",
-      usuarioEliminado
+      usuarioEliminado,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al intentar borrar el usuario" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al intentar borrar el usuario" });
   }
 };
 export const editarParcialUsuario = async (req, res) => {
   try {
-    
     const usuarioActualizado = await Usuario.findByIdAndUpdate(
       req.params.id,
       { $set: req.body }, // El operador $set de Mongoose asegura que solo se cambie lo enviado
-      { new: true, runValidators: true } // runValidators hace que respete el enum y reglas del Schema
+      { new: true, runValidators: true }, // runValidators hace que respete el enum y reglas del Schema
     );
 
     if (!usuarioActualizado) {
-      return res.status(404).json({ mensaje: "No se encontró el usuario que querés editar" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el usuario que querés editar" });
     }
 
     res.status(200).json({
       mensaje: "Usuario actualizado correctamente",
-      usuarioActualizado
+      usuarioActualizado,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al intentar actualizar el usuario" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al intentar actualizar el usuario" });
   }
 };
 export const registrarUsuario = async (req, res) => {
   //1- recibir el req
-  try{
-const {nombreUsuario, email, password, rol} = req.body
-const usuarioExistente = await Usuario.findOne({email})
-if(usuarioExistente)
-{
-  return res.status(409).json({mensaje:'El email enviado ya esta registrado'})
-}
-//2- generar un codigo de verificacion
-    const codigoVerificacion = Math.floor(100000 + Math.random() * 900000).toString();
+  try {
+    const { nombreUsuario, email, password, rol } = req.body;
+    const usuarioExistente = await Usuario.findOne({ email });
+    if (usuarioExistente) {
+      return res
+        .status(409)
+        .json({ mensaje: "El email enviado ya esta registrado" });
+    }
+    //2- generar un codigo de verificacion
+    const codigoVerificacion = Math.floor(
+      100000 + Math.random() * 900000,
+    ).toString();
     const fechaExpiracionCodigo = new Date(Date.now() + 15 * 60 * 1000);
-//3- crear el usuario y enviar por email el codigo
-const datosUsuario = {
-  nombreUsuario,
-  email,
-  password,
-  codigoVerificacion,
-  fechaExpiracionCodigo, 
-}
-if (typeof rol === 'string' && rol.trim() !== '') {
-    datosUsuario.rol = rol.toLowerCase();
-}
+    //3- crear el usuario y enviar por email el codigo
+    const datosUsuario = {
+      nombreUsuario,
+      email,
+      password,
+      codigoVerificacion,
+      fechaExpiracionCodigo,
+    };
+    if (typeof rol === "string" && rol.trim() !== "") {
+      datosUsuario.rol = rol.toLowerCase();
+    }
 
-//4- guardar el dato en el usuario
-const usuarioNuevo = await Usuario.create(datosUsuario)
-//5- enviar el mail
-await transporter.sendMail({
+    //4- guardar el dato en el usuario
+    const usuarioNuevo = await Usuario.create(datosUsuario);
+    //5- enviar el mail
+    await transporter.sendMail({
       from: '"Crud Servicios" <no-reply@crud-servicios.com>',
       to: datosUsuario.email,
       subject: "🔑 Código de Verificación de Cuenta",
@@ -143,33 +161,113 @@ await transporter.sendMail({
             Este código vencerá en 15 minutos. Si no solicitaste este registro, puedes ignorar este correo de forma segura.
           </p>
         </div>
-      `
+      `,
     });
-//6- enviar respuesta
-res.status(201).json({mensaje: 'El usuario fue creado correctamente'})
-} catch (error) {
-console.error(error);
-res.status(500).json({ mensaje: "Ocurrio un error al registrar usuarios" });
-}
-};
-export const confirmarCodigoVerificacion = async (req, res) =>{
-  try {
-    const {email, codigo} = req.body;
-    //busco el email
-    const usuarioBuscado = await usuariosRouter.findOne({email})
-    if (!usuarioBuscado){
-      return res.status(404).json({mensaje:"no se ha encontrado el ususario"})
-    //cheuqera si esta verificado el mail
-    if(usuarioBuscado.verificado){
-      return res.estatus(400).json({mensaje: "Este mail ya esta verificado"})
-    }
-    //chequear tiempo de expiracion
-    if(new Date()>usuarioBuscado.fechaExpiracionCodigo){
-      return res.status(404).json({"ël codigo ha expirado"})
-    }
-    }
+    //6- enviar respuesta
+    res.status(201).json({ mensaje: "El usuario fue creado correctamente" });
   } catch (error) {
     console.error(error);
-res.status(500).json({ mensaje: "Ocurrio un error al validar el codigo de verificacion " });
-}
+    res.status(500).json({ mensaje: "Ocurrio un error al registrar usuarios" });
   }
+};
+export const confirmarCodigoVerificacion = async (req, res) => {
+  try {
+    const { email, codigo } = req.body;
+    //busco el email
+    const usuarioBuscado = await Usuario.findOne({ email });
+    if (!usuarioBuscado) {
+      return res
+        .status(404)
+        .json({ mensaje: "no se ha encontrado el mail del ususario" });
+    }
+    //cheuqera si esta verificado el mail
+    if (usuarioBuscado.verificado) {
+      return res.estatus(400).json({ mensaje: "Este mail ya esta verificado" });
+    }
+
+    //chequear tiempo de expiracion
+    if (new Date() > usuarioBuscado.fechaExpiracionCodigo) {
+      return res.status(400).json({
+        memsaje: "El codigo ha expirado, por favor solicita un nuevo codigo",
+      });
+    }
+
+    if (usuarioBuscado.codigoVerificacion !== codigo) {
+      return res
+        .status(404)
+        .json({ memsaje: "El codigo de verificacion es incorrecto" });
+    }
+    //verificamos la cuenta del usuario
+    await Usuario.findByIdAndUpdate(usuarioBuscado._id, {
+      $set: { verificado: true },
+      $unset: { codigoVerificacion: 1, fechaExpiracionCodigo: 1 },
+    });
+    res.status(200).json({
+      mensaje: "Cuenta verificada con exito. Ya puedes iniciar sesion",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje:
+        "Ocurrio un error al validar el codigo de verificacion del usuario ",
+    });
+  }
+};
+export const solicitarNuevoCodigo = async (req, res) => {
+  try {
+    const { email } = req.body;
+    //verificar que existe un usuario con el mail enviado
+    const usuarioBuscado = await Usuario.findOne({ email });
+    if (!usuarioBuscado) {
+      return res.status(404).json({
+        mensaje: "No se encontró ningun usuario con el email enviado",
+      });
+    }
+
+    //verificamos que el usuario aún no fue validado
+    if (usuarioBuscado.verificado) {
+      return res
+        .status(400)
+        .json({ mensaje: "Esta cuenta ya esta verificada" });
+    }
+
+    const codigoVerificacion = Math.floor(
+      100000 + Math.random() * 900000,
+    ).toString(); //100000 - 999999
+    const tiempoExpiracion = new Date(Date.now() + 15 * 60 * 1000);
+
+    //actualizamos el dato en la BD
+    await Usuario.findByIdAndUpdate(usuarioBuscado._id, {
+      codigoVerificacion,
+      fechaExpiracionCodigo: tiempoExpiracion,
+    });
+    //reenvias mail con nuevo codigo
+    await transporter.sendMail({
+      from: '"Crud Servicios" <no-reply@crud-servicios.com>',
+      to: datosUsuario.email,
+      subject: "Nuevo codigo para verificacion",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 5px;">
+          <h2 style="color: #333; text-align: center;">¡Hola, ${usuarioBuscado.nombreUsuario}!</h2>
+          <p style="color: #666; font-size: 16px; line-height: 1.5;">
+            Para activar tu cuenta y poder ingresar a la plataforma, por favor utiliza el siguiente código de verificación:
+          </p>
+          <div style="background-color: #f4f4f4; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; margin: 20px 0; border-radius: 4px; color: #007bff;">
+            ${codigoVerificacion}
+          </div>
+          <p style="color: #999; font-size: 12px; text-align: center;">
+            Este código vencerá en 15 minutos. Si no solicitaste este registro, puedes ignorar este correo de forma segura.
+          </p>
+        </div>
+      `,
+    });
+    res
+      .status(200)
+      .json({ mensaje: "El nuevo codigo de verificacion fue enviado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje: "Ocurrio un error al crear un nuevo código de verificación",
+    });
+  }
+};
