@@ -7,7 +7,7 @@ export const listarUsuarios = async (req, res) => {
     res.status(201).json({ mensaje: "aqui creo un usuario" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al crear  los usuarios" });
+    res.status(500).json({ mensaje: "Ocurrió un error al crear  el usuario" });
   }
 };
 export const obtenerUsuarioId = async (req, res) => {
