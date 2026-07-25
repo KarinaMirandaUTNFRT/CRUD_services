@@ -8,7 +8,8 @@ import {
   borrarUsuario,
   registrarUsuario,
   confirmarCodigoVerificacion,
-  solicitarNuevoCodigo
+  solicitarNuevoCodigo,
+  login
 } from "../controllers/usuario.controllers.js";
 
 const usuariosRouter = Router();
@@ -17,6 +18,7 @@ usuariosRouter.route("/").get(listarUsuarios).post(crearUsuario);
 usuariosRouter.route("/registro").post(registrarUsuario)
 usuariosRouter.route("/verificar-cuenta").post(confirmarCodigoVerificacion)
 usuariosRouter.route("/reenviar-codigo").post(solicitarNuevoCodigo)
+usuariosRouter.route("/loguin").post(login)
 
 usuariosRouter
   .route("/:id")
