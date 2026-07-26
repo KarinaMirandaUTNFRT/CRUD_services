@@ -311,7 +311,7 @@ export const login = async (req, res) => {
     });
     res
     .status(200)
-    .json({mensaje: 'login exitoso', nombre: usuarioBuscado.nombre});
+    .json({mensaje: 'login exitoso', nombre: usuarioBuscado.nombreUsuario});
 
   } catch (error) {
     console.error(error);

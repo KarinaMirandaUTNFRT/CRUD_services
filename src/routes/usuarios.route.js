@@ -18,7 +18,11 @@ usuariosRouter.route("/").get(listarUsuarios).post(crearUsuario);
 usuariosRouter.route("/registro").post(registrarUsuario)
 usuariosRouter.route("/verificar-cuenta").post(confirmarCodigoVerificacion)
 usuariosRouter.route("/reenviar-codigo").post(solicitarNuevoCodigo)
-usuariosRouter.route("/loguin").post(login)
+usuariosRouter.route("/login").post(login)
+usuariosRouter.route("/perfil").get((req,res)=>{
+res.status(200).json({mensaje:'Bienvenido a tu perfil'});
+})
+
 
 usuariosRouter
   .route("/:id")
