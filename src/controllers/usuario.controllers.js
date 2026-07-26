@@ -320,3 +320,7 @@ export const login = async (req, res) => {
     });
   }
 };
+
+export const obtenerPerfil = async (req,res)=>{
+res.status(200).json({mensaje:'Bienvenido a tu perfil'});
+}

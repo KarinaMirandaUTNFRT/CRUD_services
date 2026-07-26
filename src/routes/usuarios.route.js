@@ -9,7 +9,8 @@ import {
   registrarUsuario,
   confirmarCodigoVerificacion,
   solicitarNuevoCodigo,
-  login
+  login,
+  obtenerPerfil
 } from "../controllers/usuario.controllers.js";
 import { autenticador } from "../middlewares/authmiddleware.js";
 
@@ -20,9 +21,7 @@ usuariosRouter.route("/registro").post(registrarUsuario)
 usuariosRouter.route("/verificar-cuenta").post(confirmarCodigoVerificacion)
 usuariosRouter.route("/reenviar-codigo").post(solicitarNuevoCodigo)
 usuariosRouter.route("/login").post(login)
-usuariosRouter.route("/perfil").get(autenticador,(req,res)=>{
-res.status(200).json({mensaje:'Bienvenido a tu perfil'});
-})
+usuariosRouter.route("/perfil").get(autenticador, obtenerPerfil)
 
 
 usuariosRouter
