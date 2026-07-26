@@ -1,6 +1,8 @@
+import { token } from "morgan";
 import Usuario from "../models/Usuario.js";
 import transporter from "../utils/mailer.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const listarUsuarios = async (req, res) => {
   try {
@@ -183,7 +185,7 @@ export const confirmarCodigoVerificacion = async (req, res) => {
     }
     //cheuqera si esta verificado el mail
     if (usuarioBuscado.verificado) {
-      return res.estatus(400).json({ mensaje: "Este mail ya esta verificado" });
+      return res.status(400).json({ mensaje: "Este mail ya esta verificado" });
     }
 
     //chequear tiempo de expiracion
@@ -281,16 +283,36 @@ export const login = async (req, res) => {
         .status(401)
         .json({ mensaje: "Credenciales invalidas - email " });
     }
-    console.log(await bcrypt.compare(password, usuarioBuscado.password));
+   
     if (!(await bcrypt.compare(password, usuarioBuscado.password))) {
       return res
         .status(401)
         .json({ mensaje: "Credenciales invalidas -password" });
     }
-    if (!usuarioBuscado.verificado)
+    if (!usuarioBuscado.verificado) {
       return res
         .status(401)
         .json({ mensaje: "Tu cuenta no fue verificada todavia" });
+    }
+    //generar el token
+    const token = jwt.sign(
+      { id: usuarioBuscado._id, rol: usuarioBuscado.rol },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2h",
+      },
+    );
+    res.cookie('token',token,
+    {
+      httpOnly:true,
+      secure: process.env.NODE_ENV==="production",
+      sameSite:"strict",
+      maxAge:3600000,
+    });
+    res
+    .status(200)
+    .json({mensaje: 'login exitoso', nombre: usuarioBuscado.nombre});
+
   } catch (error) {
     console.error(error);
     res.status(500).json({
