@@ -10,7 +10,8 @@ import {
   confirmarCodigoVerificacion,
   solicitarNuevoCodigo,
   login,
-  obtenerPerfil
+  obtenerPerfil,
+  logout
 } from "../controllers/usuario.controllers.js";
 import { autenticador } from "../middlewares/authmiddleware.js";
 
@@ -21,6 +22,7 @@ usuariosRouter.route("/registro").post(registrarUsuario)
 usuariosRouter.route("/verificar-cuenta").post(confirmarCodigoVerificacion)
 usuariosRouter.route("/reenviar-codigo").post(solicitarNuevoCodigo)
 usuariosRouter.route("/login").post(login)
+usuariosRouter.route("/logout").post(logout)
 usuariosRouter.route("/perfil").get(autenticador, obtenerPerfil)
 
 

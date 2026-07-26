@@ -320,7 +320,20 @@ export const login = async (req, res) => {
     });
   }
 };
-
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie ("cookieToken",
+    {
+      httpOnly:true,
+      secure: process.env.NODE_ENV==="production",
+      sameSite:"strict",
+      maxAge:3600000,
+    })
+    res.status(200).json({mensaje:'sesion cerrada exitosamente'})
+  } catch (error) {
+    console.error(error)
+  }
+}
 export const obtenerPerfil = async (req,res)=>{
 res.status(200).json({mensaje:'Bienvenido a tu perfil'});
 }
