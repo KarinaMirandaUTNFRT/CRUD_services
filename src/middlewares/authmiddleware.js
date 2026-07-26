@@ -1,0 +1,18 @@
+import jwt from "jsonwebtoken";
+export const autenticador = (req, res, next) => {
+  try {
+    const token = req.cookies.cookieToken;
+    if (!token) {
+      return res
+        .status(401)
+        .json({ mensaje: "Acceso no autorizado, token faltante." });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(403).json({mensaje:'Tocken expirado o invalido'})
+  }
+};

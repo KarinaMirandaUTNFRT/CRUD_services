@@ -302,7 +302,7 @@ export const login = async (req, res) => {
         expiresIn: "2h",
       },
     );
-    res.cookie('token',token,
+    res.cookie("cookieToken",token,
     {
       httpOnly:true,
       secure: process.env.NODE_ENV==="production",

@@ -5,7 +5,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import "../database/db.js";
 import router from "../routes/index.route.js";
-import cookieParser from "cookie-parse";
+import cookieParser from 'cookie-parser';
 export default class Server {
   constructor() {
     this.app = express();
