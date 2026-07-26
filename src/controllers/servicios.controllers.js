@@ -1,7 +1,4 @@
 import Servicio from "../models/servicios.js";
-export const prueba = (req, res) => {
-  res.json("hasta luego ultima prueba");
-};
 export const obtenerServicioId = async (req, res) => {
   try {
     console.log(req.params.id);

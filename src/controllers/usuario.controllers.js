@@ -324,3 +324,9 @@ export const login = async (req, res) => {
 export const obtenerPerfil = async (req,res)=>{
 res.status(200).json({mensaje:'Bienvenido a tu perfil'});
 }
+export const esAdmin = (req, res, next)=> {
+  if(!req.user || req. user.rot !== 'Admin'){
+    return res.status(403).json({mensaje: 'Acceso denegado: permisos insuficientes'})
+  }
+  next()
+}
