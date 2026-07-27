@@ -4,6 +4,7 @@ import transporter from "../utils/mailer.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
 export const listarUsuarios = async (req, res) => {
   try {
     const usuarioNuevo = await Usuario.find();
@@ -283,7 +284,7 @@ export const login = async (req, res) => {
         .status(401)
         .json({ mensaje: "Credenciales invalidas - email " });
     }
-   
+
     if (!(await bcrypt.compare(password, usuarioBuscado.password))) {
       return res
         .status(401)
@@ -302,17 +303,15 @@ export const login = async (req, res) => {
         expiresIn: "2h",
       },
     );
-    res.cookie("cookieToken",token,
-    {
-      httpOnly:true,
-      secure: process.env.NODE_ENV==="production",
-      sameSite:"strict",
-      maxAge:3600000,
+    res.cookie("cookieToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3600000,
     });
     res
-    .status(200)
-    .json({mensaje: 'login exitoso', nombre: usuarioBuscado.nombreUsuario});
-
+      .status(200)
+      .json({ mensaje: "login exitoso", nombre: usuarioBuscado.nombreUsuario });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -322,25 +321,39 @@ export const login = async (req, res) => {
 };
 export const logout = async (req, res) => {
   try {
-    res.clearCookie ("cookieToken",
-    {
-      httpOnly:true,
-      secure: process.env.NODE_ENV==="production",
-      sameSite:"strict",
-      maxAge:3600000,
-    })
-    res.status(200).json({mensaje:'sesion cerrada exitosamente'})
+    res.clearCookie("cookieToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3600000,
+    });
+    res.status(200).json({ mensaje: "sesion cerrada exitosamente" });
   } catch (error) {
-    console.error(error)
-     res.status(500).json({mensaje:'ocurrio un erro al intentar cerrar sesion'})
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "ocurrio un error al intentar cerrar sesion" });
   }
-}
-export const obtenerPerfil = async (req,res)=>{
-res.status(200).json({mensaje:'Bienvenido a tu perfil'});
-}
-export const esAdmin = (req, res, next)=> {
-  if(!req.user || req. user.rot !== 'Admin'){
-    return res.status(403).json({mensaje: 'Acceso denegado: permisos insuficientes'})
+};
+export const obtenerPerfil = async (req, res) => {
+  try {
+    // const usuarioBuscado = await Usuario.findById(req.user.id).select('-password -verificado')
+    const usuarioBuscado = await Usuario.findById(req.user.id);
+    if (!usuarioBuscado) {
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontro un usuario con ese id" });
+    }
+    const perfilUsuario = {
+      nombreUsuario: usuarioBuscado.nombreUsuario,
+      email: usuarioBuscado.email,
+      rol: usuarioBuscado.rol,
+    };
+    res.status(200).json(perfilUsuario);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrio al obtener el perfil del usuario" });
   }
-  next()
-}
+};

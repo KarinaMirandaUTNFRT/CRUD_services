@@ -8,7 +8,7 @@ export const autenticador = (req, res, next) => {
         .json({ mensaje: "Acceso no autorizado, token faltante." });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
+    
     req.user = decoded;
     next();
   } catch (error) {
