@@ -1,0 +1,16 @@
+import Categoria from "../models/categoria.js";
+
+export const crearCategoria = async (req, res) => {
+  try {
+    //todo: agregar el middleware para validar los datos del body
+    const categoriaNueva = new Categoria(req.body);
+    const respuesta = await categoriaNueva.save();
+    console.log(respuesta);
+    res.status(201).json({ mensaje: "se creo la categoria correctamente" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Se produjo un error al crear una categoria" });
+  }
+};
