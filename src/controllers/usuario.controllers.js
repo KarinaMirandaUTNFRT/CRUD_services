@@ -332,6 +332,7 @@ export const logout = async (req, res) => {
     res.status(200).json({mensaje:'sesion cerrada exitosamente'})
   } catch (error) {
     console.error(error)
+     res.status(500).json({mensaje:'ocurrio un erro al intentar cerrar sesion'})
   }
 }
 export const obtenerPerfil = async (req,res)=>{
