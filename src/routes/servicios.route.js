@@ -13,8 +13,8 @@ import {
   validacionServicio,
   validacionServicioPatch,
 } from "../middlewares/validacionServicio.js";
-import { autenticador } from "../middlewares/authmiddleware.js";
-import { esAdmin } from "../controllers/usuario.controllers.js";
+import { autenticador, esAdmin } from "../middlewares/authmiddleware.js";
+//import { esAdmin } from "../controllers/usuario.controllers.js";
 
 const router = Router();
 //post crea
