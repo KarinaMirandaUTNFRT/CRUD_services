@@ -55,7 +55,7 @@ const usuarioSchema = new Schema(
   },
 
   {
-    timestamp: true, //tengo la fecha y hora de creacion y actualizacion
+    timestamps: true, //tengo la fecha y hora de creacion y actualizacion
   },
 );
 usuarioSchema.pre("save", async function () {
