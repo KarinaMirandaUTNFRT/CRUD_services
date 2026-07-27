@@ -4,7 +4,6 @@ import transporter from "../utils/mailer.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-
 export const listarUsuarios = async (req, res) => {
   try {
     const usuarioNuevo = await Usuario.find();
@@ -337,23 +336,24 @@ export const logout = async (req, res) => {
 };
 export const obtenerPerfil = async (req, res) => {
   try {
-    // const usuarioBuscado = await Usuario.findById(req.user.id).select('-password -verificado')
     const usuarioBuscado = await Usuario.findById(req.user.id);
     if (!usuarioBuscado) {
       return res
         .status(404)
-        .json({ mensaje: "No se encontro un usuario con ese id" });
+        .jsos({ mensaje: " No se encntro un usuario con ese ID" });
     }
-    const perfilUsuario = {
-      nombreUsuario: usuarioBuscado.nombreUsuario,
-      email: usuarioBuscado.email,
-      rol: usuarioBuscado.rol,
-    };
+    {
+      const perfilUsuario = {
+        nombreUsuario: usuarioBuscado.nombreUsuario,
+        email: usuarioBuscado.email,
+        rol: usuarioBuscado.rol,
+      };
+    }
     res.status(200).json(perfilUsuario);
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ mensaje: "Ocurrio al obtener el perfil del usuario" });
+      .json({ mensaje: "Ocurrio un error al obtener el perfil de ususario" });
   }
 };
