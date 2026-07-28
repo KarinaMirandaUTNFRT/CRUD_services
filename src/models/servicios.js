@@ -23,9 +23,9 @@ trim: true,
         
     },
     categoria:{
-        type: String, 
+        type: Schema.Types.ObjectId, 
         required: true,
-        enum:['Desarrollo Web','backend & API', 'Consultoria']
+        ref: "categoria",
     },
     descripcion: {
         type: String,
@@ -36,7 +36,7 @@ trim: true,
     
 },
 {
-    timestamp: true, //tengo la fecha y hora de creacion y actualizacion
+    timestamps: true, //tengo la fecha y hora de creacion y actualizacion
 }
 
 );

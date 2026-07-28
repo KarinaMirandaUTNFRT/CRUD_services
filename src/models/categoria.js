@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const categoriaSchema = new Schema(
   {
-    nombre: {
+    nombreCat: {
       type: String,
       unique: true,
       required: true,
@@ -10,7 +10,7 @@ const categoriaSchema = new Schema(
       maxLength: 100,
       trim: true,
     },
-    descripcion: {
+    descripcionCat: {
       type: String,
       minLength: 5,
       maxLength: 250,
