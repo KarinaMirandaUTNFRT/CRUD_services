@@ -16,14 +16,29 @@ export const obtenerServicioId = async (req, res) => {
 };
 export const listarServicios = async (req, res) => {
   try {
-    const{termino} = req.query
+    const{termino,pagina,cantServicio} = req.query
+  
+    const paginanumero = parseInt(pagina)
+    const limite = parseInt(cantServicio)
+    const salto = (paginanumero-1) * limite
     const query = {}
 
     if(termino){
       query.nombreServicio = {$regex:termino,$options:"i"}
     }
-    const servicios = await Servicio.find().populate('categoria', 'nombreCat  descripcionCat');
-    res.status(200).json(servicios);
+    //const servicios = await Servicio.find(query).populate('categoria', 'nombreCat  descripcionCat');
+    //const cantidadTotal = await Servicio.countDocuments(query)
+    const [servicios, cantidadTotal] = await Promise.all ([
+      Servicio.find(query).populate('categoria', 'nombreCat  descripcionCat').skip(salto).limit(limite),
+      Servicio.countDocuments(query)
+
+    ])
+    res.status(200).json({
+      servicios,
+      cantidadTotal,
+      paginaActual:paginaNumero,
+      totalpaginas:Math.ceil(cantidadTotal / limite)
+    });
   } catch (error) {
     console.error(error);
     res
