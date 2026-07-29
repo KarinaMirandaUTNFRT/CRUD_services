@@ -26,8 +26,7 @@ export const listarServicios = async (req, res) => {
     if(termino){
       query.nombreServicio = {$regex:termino,$options:"i"}
     }
-    //const servicios = await Servicio.find(query).populate('categoria', 'nombreCat  descripcionCat');
-    //const cantidadTotal = await Servicio.countDocuments(query)
+   
     const [servicios, cantidadTotal] = await Promise.all ([
       Servicio.find(query).populate('categoria', 'nombreCat  descripcionCat').skip(salto).limit(limite),
       Servicio.countDocuments(query)
