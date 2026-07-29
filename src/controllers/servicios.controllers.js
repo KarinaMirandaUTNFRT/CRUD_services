@@ -16,6 +16,12 @@ export const obtenerServicioId = async (req, res) => {
 };
 export const listarServicios = async (req, res) => {
   try {
+    const{termino} = req.query
+    const query = {}
+
+    if(termino){
+      query.nombreServicio = {$regex:termino,$options:"i"}
+    }
     const servicios = await Servicio.find().populate('categoria', 'nombreCat  descripcionCat');
     res.status(200).json(servicios);
   } catch (error) {
