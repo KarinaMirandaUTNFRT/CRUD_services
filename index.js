@@ -4,5 +4,5 @@ import Server from "./src/server/config.js";
 //instanciar la clase Server
 
 const server = new Server();
-server.app.use('/tarea', router);
+server.app.use('/api', router);
 server.Listen();
