@@ -18,9 +18,9 @@ export const listarServicios = async (req, res) => {
   try {
     const{termino,pagina,cantServicio} = req.query
   
-    const paginanumero = parseInt(pagina)
+    const paginaNumero = parseInt(pagina)
     const limite = parseInt(cantServicio)
-    const salto = (paginanumero-1) * limite
+    const salto = (paginaNumero-1) * limite
     const query = {}
 
     if(termino){

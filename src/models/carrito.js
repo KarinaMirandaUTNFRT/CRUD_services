@@ -1,3 +1,5 @@
+import { obtenerServicioId } from "../controllers/servicios.controllers";
+
 const carritoSchema = new Schema(
   {
     usuario: {
@@ -8,7 +10,7 @@ const carritoSchema = new Schema(
     },
     items: [
       {
-        servicio: {
+        ServicioId: {
           type: Schema.Types.ObjectId,
           ref: "servicio",
           required: true,
