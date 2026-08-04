@@ -8,7 +8,7 @@ export const agregarAlCarrito = async (req, res) => {
     if (!servicioBuscado) {
       return res
         .status(404)
-        .json({ mensaje: "El servicio solicitado no esiste" });
+        .json({ mensaje: "El servicio solicitado no existe" });
     }
     const carrito = await buscarOCrearCarrito(userId);
     console.log('carrito antes', carrito.items)
