@@ -1,5 +1,6 @@
-import { obtenerServicioId } from "../controllers/servicios.controllers";
+import mongoose from "mongoose";
 
+import { Schema, model } from "mongoose";
 const carritoSchema = new Schema(
   {
     usuario: {
@@ -27,5 +28,5 @@ const carritoSchema = new Schema(
     timestamps: true,
   },
 );
-const Carrito = mongoose.model("carrito", carritoSchema);
+const Carrito = mongoose.model("Carrito", carritoSchema);
 export default Carrito;

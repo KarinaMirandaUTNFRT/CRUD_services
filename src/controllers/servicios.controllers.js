@@ -1,4 +1,5 @@
 import Servicio from "../models/servicios.js";
+
 export const obtenerServicioId = async (req, res) => {
   try {
     console.log(req.params.id);
