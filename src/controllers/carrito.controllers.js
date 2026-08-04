@@ -13,16 +13,16 @@ export const agregarAlCarrito = async (req, res) => {
     const carrito = await buscarOCrearCarrito(userId);
   
     const itemIndex = carrito.items.findIndex(
-      (item) => item.servicio.toString() === servicio,
+      (item) => item.servicio.toString() === servicioId,
     );
        
     //tengo este servicio en el carrito
 if(itemIndex > -1){
-    console.log('actualizar cantidad')
+     carrito.items[itemIndex].cantidad += parseInt(cantidad)
 }else{
     
     carrito.items.push({
-        servicio,
+        servicio: servicioId,
         cantidad
     })
 }
