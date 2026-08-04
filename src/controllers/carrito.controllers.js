@@ -11,14 +11,14 @@ export const agregarAlCarrito = async (req, res) => {
         .json({ mensaje: "El servicio solicitado no existe" });
     }
     const carrito = await buscarOCrearCarrito(userId);
-    console.log('carrito antes', carrito.items)
+  
     const itemIndex = carrito.items.findIndex(
       (item) => item.servicio.toString() === servicioId,
     );
-    console.log(itemIndex);
+       
     //tengo este servicio en el carrito
 if(itemIndex > -1){
-    console.log('actualizar cantidad')
+     carrito.items[itemIndex].cantidad += parseInt(cantidad)
 }else{
     
     carrito.items.push({
@@ -26,10 +26,16 @@ if(itemIndex > -1){
         cantidad
     })
 }
-console.log(carrito.items)
+await carrito.save();
+
+return res.status(201).json({
+      mensaje: "Producto Servicio agregado al carrito con éxito",
+      carrito
+    });
+
   } catch (error) {
     console.error(error);
-    res
+    return res
       .status(500)
       .json({ mensaje: "ocurrio un error al agregar un elemento al carrito" });
   }
