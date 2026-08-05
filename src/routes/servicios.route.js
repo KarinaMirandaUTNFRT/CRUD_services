@@ -22,7 +22,7 @@ const router = Router();
 //delete borra
 
 
-router.route("/").post([autenticador,esAdmin,validacionServicio], crearServicio).get([autenticador,esAdmin], listarServicios);
+router.route("/").post([autenticador,esAdmin,validacionServicio], crearServicio).get( listarServicios);
 router
   .route("/:id")
   .get(validacionIDServicio, obtenerServicioId)
