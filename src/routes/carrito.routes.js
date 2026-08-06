@@ -1,9 +1,20 @@
-import {Router} from 'express'
-import { agregarAlCarrito } from '../controllers/carrito.controllers.js';
-import { autenticador } from '../middlewares/authmiddleware.js';
+import { Router } from "express";
+import {
+  agregarAlCarrito,
+  obtenerCarrito,
+  restarCantidad,
+  vaciarCarrito,
+} from "../controllers/carrito.controllers.js";
+import { autenticador } from "../middlewares/authmiddleware.js";
 
 const router = Router();
 
-router.route('/'). post (autenticador, agregarAlCarrito)
+router
+  .route("/")
+  .post(autenticador, agregarAlCarrito)
+  .get(autenticador, obtenerCarrito)
+  .delete(autenticador, vaciarCarrito);
 
-export default router
+router.route("/restar/:servicioId").patch(autenticador, restarCantidad);
+
+export default router;
