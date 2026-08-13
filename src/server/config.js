@@ -1,11 +1,12 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import "../database/db.js";
 import router from "../routes/index.route.js";
-import cookieParser from 'cookie-parser';
+
 export default class Server {
   constructor() {
     this.app = express();
@@ -19,11 +20,18 @@ export default class Server {
   }
 
   middleware() {
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        credentials: true,
+        methods: ["GET", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      }),
+    );
     this.app.use(express.json());
     this.app.use(morgan("dev"));
     this.app.use(cookieParser());
-
+    this.app.use(morgan("dev"));
     const __dirname = dirname(fileURLToPath(import.meta.url));
     this.app.use(express.static(join(__dirname, "../../public")));
   }

@@ -340,16 +340,16 @@ export const obtenerPerfil = async (req, res) => {
     if (!usuarioBuscado) {
       return res
         .status(404)
-        .jsos({ mensaje: " No se encntro un usuario con ese ID" });
+        .json({ mensaje: " No se encontro un usuario con ese ID" });
     }
-    {
+    
       const perfilUsuario = {
         nombreUsuario: usuarioBuscado.nombreUsuario,
         email: usuarioBuscado.email,
         rol: usuarioBuscado.rol,
       };
-    }
-    res.status(200).json(perfilUsuario);
+    
+    return res.status(200).json(perfilUsuario);
   } catch (error) {
     console.error(error);
     res
