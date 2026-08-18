@@ -4,7 +4,7 @@ export const obtenerServicioId = async (req, res) => {
   try {
     console.log(req.params.id);
     const servicioBuscado = await Servicio.findById(req.params.id);
-        if (!servicioBuscado) {
+    if (!servicioBuscado) {
       return res
         .status(404)
         .json({ mensaje: "no se encontro el servicio por id" });
@@ -12,32 +12,36 @@ export const obtenerServicioId = async (req, res) => {
     res.status(200).json(servicioBuscado);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "ocurrio un error al buscar un servicio por id" });
+    res
+      .status(500)
+      .json({ mensaje: "ocurrio un error al buscar un servicio por id" });
   }
 };
 export const listarServicios = async (req, res) => {
   try {
-    const{termino,pagina,cantServicio} = req.query
-  
-    const paginaNumero = parseInt(pagina)
-    const limite = parseInt(cantServicio)
-    const salto = (paginaNumero-1) * limite
-    const query = {}
+    const { termino, pagina, cantServicio } = req.query;
 
-    if(termino){
-      query.nombreServicio = {$regex:termino,$options:"i"}
+    const paginaNumero = parseInt(pagina) || 1;
+    const limite = parseInt(cantServicio) || 8;
+    const salto = (paginaNumero - 1) * limite;
+    const query = {};
+
+    if (termino) {
+      query.nombreServicio = { $regex: termino, $options: "i" };
     }
-   
-    const [servicios, cantidadTotal] = await Promise.all ([
-      Servicio.find(query).populate('categoria', 'nombreCat  descripcionCat').skip(salto).limit(limite),
-      Servicio.countDocuments(query)
 
-    ])
+    const [servicios, cantidadTotal] = await Promise.all([
+      Servicio.find(query)
+        .populate("categoria", "nombreCat  descripcionCat")
+        .skip(salto)
+        .limit(limite),
+      Servicio.countDocuments(query),
+    ]);
     res.status(200).json({
       servicios,
       cantidadTotal,
-      paginaActual:paginaNumero,
-      totalpaginas:Math.ceil(cantidadTotal / limite)
+      paginaActual: paginaNumero,
+      totalpaginas: Math.ceil(cantidadTotal / limite),
     });
   } catch (error) {
     console.error(error);
@@ -62,31 +66,38 @@ export const editarServicio = async (req, res) => {
   try {
     // 1. Buscamos por el ID que viene en la URL y le pasamos los datos nuevos del req.body
     // { new: true } sirve para que MongoDB nos devuelva el documento YA modificado
-    const servicioActualizado = await Servicio.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const servicioActualizado = await Servicio.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+    );
 
     // 2. Si el ID no existía en la base de datos, avisamos
     if (!servicioActualizado) {
-      return res.status(404).json({ mensaje: "No se encontró el servicio para editar" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el servicio para editar" });
     }
 
     // 3. Si todo salió bien, respondemos con éxito y el objeto editado
     res.status(200).json({
       mensaje: "El servicio fue editado con éxito",
-      servicioActualizado
+      servicioActualizado,
     });
-
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al intentar editar el servicio" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al intentar editar el servicio" });
   }
 };
 export const actualizarParcialServicio = async (req, res) => {
   try {
     // Mongoose es inteligente: si en req.body solo viene el precio, solo actualiza el precio
     const servicioActualizado = await Servicio.findByIdAndUpdate(
-      req.params.id, 
-      req.body, 
-      { new: true } // Para que devuelva el objeto ya cambiado
+      req.params.id,
+      req.body,
+      { new: true }, // Para que devuelva el objeto ya cambiado
     );
 
     if (!servicioActualizado) {
@@ -95,7 +106,7 @@ export const actualizarParcialServicio = async (req, res) => {
 
     res.status(200).json({
       mensaje: "Servicio actualizado parcialmente con éxito",
-      servicioActualizado
+      servicioActualizado,
     });
   } catch (error) {
     console.error(error);
@@ -109,16 +120,20 @@ export const borrarServicio = async (req, res) => {
 
     // Si el ID no existía en la base de datos, avisamos
     if (!servicioEliminado) {
-      return res.status(404).json({ mensaje: "No se encontró el servicio que querés borrar" });
+      return res
+        .status(404)
+        .json({ mensaje: "No se encontró el servicio que querés borrar" });
     }
 
     // Si todo salió bien, respondemos con éxito
     res.status(200).json({
       mensaje: "El servicio fue eliminado con éxito",
-      servicioEliminado // Opcional: devolvemos el objeto que se borró
+      servicioEliminado, // Opcional: devolvemos el objeto que se borró
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Ocurrió un error al intentar borrar el servicio" });
+    res
+      .status(500)
+      .json({ mensaje: "Ocurrió un error al intentar borrar el servicio" });
   }
 };

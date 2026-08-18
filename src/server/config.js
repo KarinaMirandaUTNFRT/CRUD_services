@@ -22,7 +22,7 @@ export default class Server {
   middleware() {
     this.app.use(
       cors({
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: process.env.FRONTEND_URL || "http://localhost:5174",
         credentials: true,
         methods: ["GET", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
