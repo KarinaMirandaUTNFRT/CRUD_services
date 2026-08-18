@@ -21,7 +21,7 @@ const ordenSchema = new Schema(
             Type: String,
             requied:true
         },
-        PrecioUnitario:{
+        precioUnitario:{
             Type:Number,
             requied: true,
         },
