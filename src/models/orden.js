@@ -52,5 +52,5 @@ const ordenSchema = new Schema(
     timestamps: true,
   },
 );
-const Orden = mongoose.model("orden", carritoSchema);
+const Orden = mongoose.model("orden", ordenSchema);
 export default Orden;
