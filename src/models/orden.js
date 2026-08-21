@@ -4,11 +4,10 @@ import { Schema, model } from "mongoose";
 const ordenSchema = new Schema(
   {
     usuario: {
-      type: Schema.Types.ObjectId,
-      ref: "usuario",
-      required: true,
-      
-    },
+  type: Schema.Types.ObjectId,
+  ref: 'Usuario',
+  required: true
+},
     items: [
       {
         servicio: {
@@ -18,23 +17,23 @@ const ordenSchema = new Schema(
         },
         nombreServicio:
         {
-            Type: String,
-            requied:true
+            type: String,
+            required:true
         },
         precioUnitario:{
-            Type:Number,
-            requied: true,
+            type:Number,
+            required: true,
         },
         cantidad: {
           type: Number,
-          requied: true,
+          required: true,
           min: 1,
         },
       },
     ],
     montoTotal:{
-        Type:Number,
-        requied: true,
+        type:Number,
+        required: true,
     },
     estado:{
         type: String,
