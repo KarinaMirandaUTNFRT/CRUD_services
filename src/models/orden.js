@@ -18,23 +18,23 @@ const ordenSchema = new Schema(
         },
         nombreServicio:
         {
-            Type: String,
-            requied:true
+            type: String,
+            required:true
         },
         precioUnitario:{
-            Type:Number,
-            requied: true,
+            type:Number,
+            required: true,
         },
         cantidad: {
           type: Number,
-          requied: true,
+          required: true,
           min: 1,
         },
       },
     ],
     montoTotal:{
-        Type:Number,
-        requied: true,
+        type:Number,
+        required: true,
     },
     estado:{
         type: String,
@@ -52,5 +52,5 @@ const ordenSchema = new Schema(
     timestamps: true,
   },
 );
-const Orden = mongoose.model("orden", carritoSchema);
+const Orden = mongoose.model("orden", ordenSchema);
 export default Orden;
