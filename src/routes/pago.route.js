@@ -6,6 +6,6 @@ import { autenticador } from "../middlewares/authmiddleware.js";
 const router = Router();
 
 router.route("/crear-preferencia") . post(autenticador, crearPreferenciaPago)
-router.post("/webhook", recibirWebhook);
+router.route("/webhook").post(recibirWebhook);
 
 export default router;
