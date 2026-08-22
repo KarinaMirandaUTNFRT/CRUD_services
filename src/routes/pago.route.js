@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { crearPreferencia } from "../controllers/pago.controllers.js";
+import { crearPreferenciaPago } from "../controllers/pago.controllers.js";
 import { autenticador } from "../middlewares/authmiddleware.js";
 
 
 const router = Router();
 
-router.route("/crear-preferencia"). post(autenticador, crearPreferencia)
+router.route("/crear-preferencia"). post(autenticador, crearPreferenciaPago)
   
 
 
