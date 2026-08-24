@@ -2,7 +2,6 @@ import { MercadoPagoConfig, Preference, Payment } from "mercadopago";
 import buscarOCrearCarrito from "../utils/buscarOCrearCarrito.js";
 import Orden from "../models/orden.js";
 
-
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN,
 });
