@@ -16,6 +16,14 @@ const carritoSchema = new Schema(
           ref: "servicio",
           required: true,
         },
+        nombreServicio: {
+          type: String,
+          required: true,
+        },
+        precioUnitario: {
+          type: Number,
+          required: true,
+        },
         cantidad: {
           type: Number,
           default: 1,

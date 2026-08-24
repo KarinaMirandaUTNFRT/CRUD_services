@@ -19,9 +19,13 @@ export const agregarAlCarrito = async (req, res) => {
     //tengo este servicio en el carrito
     if (itemIndex > -1) {
       carrito.items[itemIndex].cantidad += parseInt(cantidad);
+    carrito.items[itemIndex].precioUnitario = servicioBuscado.precio;
+      carrito.items[itemIndex].nombreServicio = servicioBuscado.nombreServicio;
     } else {
       carrito.items.push({
         servicio: servicioId,
+        nombreServicio: servicioBuscado.nombreServicio,
+        precioUnitario: servicioBuscado.precio,
         cantidad,
       });
     }

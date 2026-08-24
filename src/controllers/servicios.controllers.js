@@ -22,7 +22,7 @@ export const listarServicios = async (req, res) => {
     const { termino, pagina, cantServicio } = req.query;
 
     const paginaNumero = parseInt(pagina) || 1;
-    const limite = parseInt(cantServicio) || 3;
+    const limite = parseInt(cantServicio) || 10;
     const salto = (paginaNumero - 1) * limite;
     const query = {};
 
